@@ -60,6 +60,9 @@
     <Reference Include="Bunifu.UI.WinForms.BunifuPictureBox">
       <HintPath>..\..\..\..\Downloads\fls\Bunifu UI WinForms 1.11.5.1\Bunifu.UI.WinForms.BunifuPictureBox.dll</HintPath>
     </Reference>
+    <Reference Include="Bunifu.UI.WinForms.BunifuRadioButton">
+      <HintPath>..\..\..\Bunifu_UI_WinForms_1.11.5.1\Bunifu_UI_WinForms_1.11.5.1\Bunifu.UI.WinForms.BunifuRadioButton.dll</HintPath>
+    </Reference>
     <Reference Include="Bunifu.UI.WinForms.BunifuTextbox">
       <HintPath>..\..\..\..\Downloads\fls\Bunifu UI WinForms 1.11.5.1\Bunifu.UI.WinForms.BunifuTextbox.dll</HintPath>
     </Reference>
@@ -85,12 +88,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\TableController.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ListOfTables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ListOfTables.Designer.cs">
+      <DependentUpon>ListOfTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewOrder.Designer.cs">
+      <DependentUpon>NewOrder.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\TableOrders.cs">
       <SubType>Form</SubType>
@@ -99,11 +116,22 @@
       <DependentUpon>TableOrders.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ApiRequest.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Table.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ListOfTables.resx">
+      <DependentUpon>ListOfTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewOrder.aa.resx">
+      <DependentUpon>NewOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewOrder.resx">
+      <DependentUpon>NewOrder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TableOrders.resx">
       <DependentUpon>TableOrders.cs</DependentUpon>

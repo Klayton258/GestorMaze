@@ -34,3 +34,35 @@ C:\Users\Klayton Massango\source\repos\Gestor Maze\Gestor Maze\bin\Debug\Bunifu.
 C:\Users\Klayton Massango\source\repos\Gestor Maze\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuTextbox.xml
 C:\Users\Klayton Massango\source\repos\Gestor Maze\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuDropdown.dll
 C:\Users\Klayton Massango\source\repos\Gestor Maze\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuDropdown.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Gestor Maze.exe.config
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Gestor Maze.exe
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Gestor Maze.pdb
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Newtonsoft.Json.dll
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu.UI.WinForm.BunifuShadowPanel.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuButton.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuCircleProgress.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuColorTransition.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuDataGridView.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuDropdown.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuLabel.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuPages.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuPictureBox.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuTextbox.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu_UI_v1.5.3.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Newtonsoft.Json.xml
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\Gestor Maze.csproj.AssemblyReference.cache
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\Gestor_Maze.FormPrincipal.resources
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\Gestor_Maze.Forms.TableOrders.resources
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\Gestor_Maze.Properties.Resources.resources
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\Gestor Maze.csproj.GenerateResource.cache
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\Gestor Maze.csproj.CoreCompileInputs.cache
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\Gestor Maze.csproj.CopyComplete
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\Gestor Maze.exe
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\Gestor Maze.pdb
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\Gestor_Maze.Forms.ListOfTables.resources
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\Gestor_Maze.Forms.NewOrder.resources
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuRadioButton.dll
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\Bunifu.UI.WinForms.BunifuRadioButton.xml
+B:\Work\GestorMaze-main\Gestor Maze\bin\Debug\aa\Gestor Maze.resources.dll
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\Gestor_Maze.Forms.NewOrder.aa.resources
+B:\Work\GestorMaze-main\Gestor Maze\obj\Debug\aa\Gestor Maze.resources.dll
