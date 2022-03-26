@@ -1,10 +1,12 @@
-﻿using Gestor_Maze.Controllers;
+﻿using Bunifu.UI.WinForms.BunifuButton;
+using Gestor_Maze.Controllers;
 using Gestor_Maze.Forms;
 using Gestor_Maze.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Net.Http;
@@ -12,22 +14,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Gestor_Maze
 {
     public partial class FormPrincipal : Form
     {
-        bool Found = false;
-        double subtotal = 0;
-        
 
-        public FormPrincipal()
+        public FormPrincipal(string user, string role)
         {
             InitializeComponent();
+            lblVersion.Text = Gestor_Maze.Properties.Resources.version;
+
             showActivePage.Hide();
             closeTabs.Hide();
-            notFoundmessage.Hide();
+            lblUser.Text = user;
+            lblPerm.Text = role;
+
+            if (!role.Equals("10"))
+            {
+                btnManagementMenu.Hide();
+            }
+
         }
-        
+           
+
         private void listProducts()
         {
             try
@@ -40,13 +50,13 @@ namespace Gestor_Maze
 
                 for (int i = 0; i < p.Result.data.Count; i++)
                 {
-                        tableProducts.Rows.
-                            Add(
-                                p.Result.data[i].id,
-                                p.Result.data[i].product_name,
-                                p.Result.data[i].price,
-                                p.Result.data[i].quantity
-                                ); // Add values in the table
+                    tableProducts.Rows.
+                        Add(
+                            p.Result.data[i].id,
+                            p.Result.data[i].product_name,
+                            p.Result.data[i].price,
+                            p.Result.data[i].quantity
+                            ); // Add values in the table
                 }
             }
             catch (Exception)
@@ -62,47 +72,31 @@ namespace Gestor_Maze
             try
             {
 
-                var orders = Task.Run(() => OrderController.AllTables());
-                orders.Wait();
+                var p = Task.Run(() => TableController.AllTables());
+                p.Wait();
 
-                for (int i = 0; i < orders.Result.data.Count; i++)
+                clientsTables.Rows.Clear(); // Clean the table Products
+
+                for (int i = 0; i < p.Result.data.Count; i++)
                 {
-
-                    foreach (DataGridViewRow row in clientsTables.Rows)
+                    if (p.Result.data[i].state.Equals("OCCUPED"))
                     {
-
-                        if (Convert.ToString(row.Cells[1].Value) == orders.Result.data[i].table_name)
-                        {
-                            subtotal += orders.Result.data[i].subtotal;
-                            Found = true;
-
-                        }
-                        if (Convert.ToString(row.Cells[1].Value) == orders.Result.data[i].table_name)
-                        {
-                            subtotal += orders.Result.data[i].subtotal;
-
-                        }
-                        //clientsTables.Row.Cells[3].Value = subtotal.ToString();
-                    }
-                    if (!Found)
-                    {
-                        clientsTables.Rows.Add
-                             (
-                                 orders.Result.data[i].table_id,
-                                 orders.Result.data[i].table_name,
-                                 orders.Result.data[i].id
-
-                             );
+                        clientsTables.Rows.
+                            Add(
+                                p.Result.data[i].id,
+                                p.Result.data[i].table_name,
+                                p.Result.data[i].lot
+                                ); // Add values in the table
                     }
                 }
+
             }
             catch (Exception)
             {
-
                 MessageBox.Show("An error occured , please check your connection or contact the admin.",
                 "Tables Page", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
             }
-            
+
         }
 
         private void activatePage(Control c)
@@ -135,10 +129,6 @@ namespace Gestor_Maze
             pageTitle.Text = "TABLES";
             activatePage(btnTablesMenu);
             PageController.SelectTab(teblesPage);
-            topMenu.GradientBottomLeft = Color.Green;
-            topMenu.GradientBottomRight = Color.Green;
-            topMenu.GradientTopLeft = Color.Green;
-            topMenu.GradientTopRight = Color.Green;
             btnTablesMenu.BackColor = Color.Green;
             #endregion
 
@@ -150,10 +140,6 @@ namespace Gestor_Maze
             #region Page Style
             pageTitle.Text = "ORDERS";
             activatePage(btnOrdersMenu);
-            topMenu.GradientBottomLeft = Color.Red;
-            topMenu.GradientBottomRight = Color.Red;
-            topMenu.GradientTopLeft = Color.Red;
-            topMenu.GradientTopRight = Color.Red;
             PageController.SelectTab(ordersPage);
             btnOrdersMenu.BackColor = btnOrdersMenu.Activecolor;
             #endregion
@@ -205,13 +191,13 @@ namespace Gestor_Maze
 
         }
 
-        private void txtRegister_Click(object sender, EventArgs e)
+        private void btnRegister_Click(object sender, EventArgs e)
         {
 
             try
             {
                 string name = txtName.Text.Trim();
-                double price = double.Parse(txtID.Text.Trim());
+                double price = double.Parse(txtPrice.Text.Trim());
                 int quantity = int.Parse(txtQuantity.Text.Trim());
 
                 var response = Task.Run(() => ProductController.NewProduct(name, price, quantity));
@@ -229,14 +215,14 @@ namespace Gestor_Maze
                 }
                 #endregion
 
-                txtName.Text = ""; txtID.Text = "";  txtQuantity.Text = ""; 
+                txtName.Text = ""; txtPrice.Text = ""; txtQuantity.Text = "";
             }
             catch (Exception)
             {
 
-            MessageBox.Show("Error print products list, please check your connection or contact the admin.",
-                "Products Page", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
-                
+                MessageBox.Show("Error print products list, please check your connection or contact the admin.",
+                    "Products Page", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
+
             }
 
 
@@ -246,7 +232,7 @@ namespace Gestor_Maze
 
         private void Orders_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void bunifuButton1_Click(object sender, EventArgs e)
@@ -266,9 +252,13 @@ namespace Gestor_Maze
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
             object product = clientsTables.CurrentRow.Cells[0].Value;
-            
 
-            new TableOrders(product).ShowDialog();
+
+            TableOrders tborders = new TableOrders(product);
+            tborders.ShowDialog();
+
+
+
         }
 
         private void txtSearch_TextChange(object sender, EventArgs e)
@@ -304,9 +294,9 @@ namespace Gestor_Maze
             catch (Exception)
             {
 
-            MessageBox.Show("An error occured , please check your connection or contact the admin.",
-            "Tables Page", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
-           
+                MessageBox.Show("An error occured , please check your connection or contact the admin.",
+                "Tables Page", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
+
             }
 
 
@@ -330,28 +320,29 @@ namespace Gestor_Maze
 
         private void removeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            
-                object id = tableProducts.CurrentRow.Cells[0].Value;
-                object name = tableProducts.CurrentRow.Cells[1].Value;
 
-                if (MessageBox.Show($"Are you sure you want to delete '{name}'.", "Deleted", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-                {
+            object id = tableProducts.CurrentRow.Cells[0].Value;
+            object name = tableProducts.CurrentRow.Cells[1].Value;
+
+            if (MessageBox.Show($"Are you sure you want to delete '{name}'.", "Deleted", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
 
                 try
                 {
 
-                var response = Task.Run(() => ProductController.DeleteProduct(id));
-                response.Wait();
-                Console.WriteLine("DELETED  "+response);
-                //switch (response.Result.code)
-                //{
+                    var response = Task.Run(() => ProductController.DeleteProduct(id));
+                    response.Wait();
 
-                //    case 204:
-                //        MessageBox.Show("Product Deleted.", "Deleted", MessageBoxButtons.OK);
-                //        listProducts();
-                //        break;
-                //}
-                MessageBox.Show($"An error occurred deleting '{name}'.", "Error Delete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (response.Result == 202)
+                    {
+                        listProducts();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"An error occurred deleting '{name}'.", "Error Delete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+
                 }
                 catch (Exception)
                 {
@@ -367,35 +358,35 @@ namespace Gestor_Maze
 
         private void bntCreateTable_Click(object sender, EventArgs e)
         {
-            
+
 
 
             try
             {
-            string name = txtTableName.Text.Trim();
-            int lot = int.Parse(txtTableLot.Text.Trim());
-                
-            var response = Task.Run(() => TableController.NewTable(name, lot));
-            response.Wait();
+                string name = txtTableName.Text.Trim();
+                int lot = int.Parse(txtTableLot.Text.Trim());
 
-            #region Message
+                var response = Task.Run(() => TableController.NewTable(name, lot));
+                response.Wait();
 
-            if (response.Result.code == 1010)
-            {
-                MessageBox.Show(response.Result.msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                MessageBox.Show(response.Result.msg, "Success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-            }
-            #endregion
+                #region Message
+
+                if (response.Result.code == 1010)
+                {
+                    MessageBox.Show(response.Result.msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show(response.Result.msg, "Success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                #endregion
 
             }
             catch (Exception)
             {
 
-            MessageBox.Show("Error print products list, please check your connection or contact the admin.",
-                            "Products Page", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
+                MessageBox.Show("Error print products list, please check your connection or contact the admin.",
+                                "Products Page", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
             }
 
 
@@ -410,12 +401,93 @@ namespace Gestor_Maze
         }
 
         private void tableProducts_SelectionChanged(object sender, EventArgs e)
-        {            
+        {
         }
 
         private void btnNewTable_Click(object sender, EventArgs e)
         {
             new NewOrder().ShowDialog();
+        }
+
+        private void txtName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtName_Enter(object sender, EventArgs e)
+        {
+            //new Forms.Keyboard().ShowDialog();
+        }
+
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnEdit.Enabled = true;
+            btnRegister.Enabled = false;
+
+            txtID.Text = tableProducts.CurrentRow.Cells[0].Value.ToString();
+            txtName.Text = tableProducts.CurrentRow.Cells[1].Value.ToString();
+            txtPrice.Text = tableProducts.CurrentRow.Cells[2].Value.ToString();
+            txtQuantity.Text = tableProducts.CurrentRow.Cells[3].Value.ToString();
+
+
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(txtID.Text);
+            string name = txtName.Text;
+            int quantity = int.Parse(txtQuantity.Text);
+            double price = double.Parse(txtPrice.Text);
+
+            if (quantity != 0 && price != 0 && id != 0 && name != "")
+            {
+
+
+                //Update Product
+                int newQut = 0;
+                if (quantity < 0)
+                {
+                    //subtrair quantidade
+                    newQut = 10 - 1;
+                }
+                else
+                {
+                    //Add quantity
+                    newQut = 10 + 2;
+                }
+
+                txtID.Text = ""; txtName.Text = ""; txtPrice.Text = ""; txtQuantity.Text = "";
+
+                btnRegister.Enabled = true;
+                btnEdit.Enabled = false;
+            }
+        }
+
+        private void addProductToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnRegister.Enabled = true;
+        }
+
+        private void bunifuButton5_Click(object sender, EventArgs e)
+        {
+            ListOrders();
+        }
+
+        private void FormPrincipal_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        
+
+
+        private void btnRel_Click(object sender, EventArgs e)
+        {
+            string begin = dpStartDate.Value.Date.ToString("yyyy-MM-dd");
+            string end = dpEndDate.Value.Date.ToString("yyyy-MM-dd");
+
+            new Forms.Rel(begin, end).ShowDialog();
         }
     }
 }

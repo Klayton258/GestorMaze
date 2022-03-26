@@ -9,7 +9,7 @@ namespace Gestor_Maze.Controllers
 {
     class ProductController
     {
-        private static string baseURL = "http://127.0.0.1:8000/api/products/"; // Endpoint
+        private static string baseURL = Gestor_Maze.Properties.Resources.baseUrlproducts; // Endpoint
 
         /**
          * Get All Products
@@ -34,6 +34,7 @@ namespace Gestor_Maze.Controllers
         */
         public static async Task<Product> NewProduct(string name, double price, int quantity)
         {
+            Console.WriteLine(" PROBLEM GET HERE " + name +" "+price+" "+ quantity);
             Product responseValue = new Product();
             using (var httpClient = new HttpClient())
             {
@@ -233,20 +234,19 @@ namespace Gestor_Maze.Controllers
             return responseValue;
         }
 
-        public static async Task<int> GetAllProductbyName(string name)
+        public static async Task<Product> GetAllProductbyName(string name)
         {
             Product responseValue = new Product();
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync(baseURL + $"getId/{name}");
+                var response = await httpClient.GetAsync(baseURL + $"getallbyname/{name}");
 
                 var resp = await response.Content.ReadAsStringAsync();
 
                 responseValue = Product.JsonDesserialize(resp);
 
-                int id = responseValue.data[0].id;
 
-                return id;
+                return responseValue;
             }
 
         }

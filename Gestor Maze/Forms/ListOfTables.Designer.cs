@@ -45,11 +45,11 @@ namespace Gestor_Maze.Forms
             this.menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.activateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.desactiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.bunifuButton1 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton();
             this.lblTitle = new Bunifu.UI.WinForms.BunifuLabel();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.tblTables)).BeginInit();
             this.menu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -167,6 +167,13 @@ namespace Gestor_Maze.Forms
             this.desactiveToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.desactiveToolStripMenuItem.Text = "Desactive";
             // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DodgerBlue;
@@ -269,13 +276,6 @@ namespace Gestor_Maze.Forms
             this.bunifuDragControl1.TargetControl = this.lblTitle;
             this.bunifuDragControl1.Vertical = true;
             // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
-            // 
             // ListOfTables
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -286,6 +286,7 @@ namespace Gestor_Maze.Forms
             this.MaximumSize = new System.Drawing.Size(394, 552);
             this.MinimumSize = new System.Drawing.Size(394, 552);
             this.Name = "ListOfTables";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ListOfTables";
             this.Load += new System.EventHandler(this.ListOfTables_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tblTables)).EndInit();

@@ -9,8 +9,8 @@ namespace Gestor_Maze.Models
         public string product_name { get; set; }
         public double price { get; set; }
         public int quantity { get; set; }
-        public string created { get; set; }
-        public string updated { get; set; }
+        //public string created { get; set; }
+        //public string updated { get; set; }
 
     }
     class Product

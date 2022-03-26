@@ -21,6 +21,7 @@ namespace Gestor_Maze.Forms
             ListTables();
             ListProducts();
         }
+        public static bool done = false;
 
         private void ListTables()
         {
@@ -31,8 +32,9 @@ namespace Gestor_Maze.Forms
 
                 for (int i = 0; i < table.Result.data.Count; i++)
                 {
-                if (table.Result.data[i].state.Equals("AVALIABLE"))
+                if (table.Result.data[i].state.Equals("ACTIVE") && table.Result.data[i].state_id != 3)
                 {
+                        Console.WriteLine(table.Result.data[i].table_name +" "+ table.Result.data[i].state_id);
                     cbxTable.Items.Add(
                         table.Result.data[i].table_name);
                     cbxTable.AutoCompleteCustomSource.Add(
@@ -89,53 +91,86 @@ namespace Gestor_Maze.Forms
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            btnAdd.Enabled = false;
             try
             {
-                string table = cbxTable.Text;
-                string product = cbxProduct.Text;
+                string table = cbxTable.Text.Trim();
+                string product = cbxProduct.Text.Trim();
 
-                //if (!cbxTable.Items.Contains(table) || table == "")
-                //{
-                //    MessageBox.Show($"Table {table} doesn't exist.",
-                //    "Table doesn't exist", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
-                //    return;
-                //}
+                #region VALIDATE VALUES
+                if (!cbxTable.Items.Contains(table) || table == "")
+                {
+                    MessageBox.Show($"Table {table} doesn't exist.",
+                    "Table doesn't exist", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
+                    btnAdd.Enabled = true;
+                    return;
+                }
                 if (!cbxProduct.Items.Contains(product) || product == "")
                 {
                     MessageBox.Show($"Product {product} doesn't exist",
                     "Product doesn't exist", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
+                    btnAdd.Enabled = true;
                     return;
                 }
+                #endregion
 
-                var id = Task.Run(() => ProductController.GetAllProductbyName(product));
-                id.Wait();
-                //int product_id = int.Parse(id.Result.ToString());
+                var pro = Task.Run(() => ProductController.GetAllProductbyName(product));
+                pro.Wait();
 
-                //var tblid = Task.Run(() => ableController.GetTabletbyName(table));
-                //tblid.Wait();
-                Console.WriteLine(id.Result);
-
+                var tableall = Task.Run(() => TableController.GetTableAllbyName(table));
+                tableall.Wait();
 
 
-                foreach (Data item in id.Result)
+                int table_id = tableall.Result.data[0].id;
+                int product_id = pro.Result.data[0].id;
+                double price = pro.Result.data[0].price;
+                int quantity = int.Parse(txtQuantity.Text.Trim());
+
+                if (quantity > int.Parse(txtStock.Text) || int.Parse(txtQuantity.Text.Trim()) <=0 )
                 {
-                    Console.WriteLine("Product NAME = "+item.product_name);
+                    MessageBox.Show("Quantity not avaliable or quantity can't be 0",
+                    "Stock Alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
+                    btnAdd.Enabled = true;
+                    return;
                 }
+                double subtotal = price * quantity;
 
-                //int table_id = int.Parse(id.Result.ToString());
+                var createOrder = Task.Run(() => OrderController.NewOrder(product_id, table_id, price, quantity, subtotal));
+                createOrder.Wait();
+
+                if (createOrder.Result.code != 201)
+                {
+                    MessageBox.Show("An error occured , please check your connection or contact the admin.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
+                    return;
+                }
                 
-                double price = 0;
-                int quantity = 0;
-                double subtotal = 0;
-
-                //var createOrder = Task.Run(() => OrderController.NewOrder(product_id,table_id,price,quantity,subtotal));
-                //createOrder.Wait();
-
             }
             catch (Exception)
             {
+                btnAdd.Enabled = true;
+                MessageBox.Show("An error occured , please check your connection or contact the admin.",
+                "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
 
-                throw;
+            }
+            btnAdd.Enabled = true;
+            Dispose();
+        }
+
+        private void cbxProduct_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string product = cbxProduct.Text.Trim();
+            if (product !="")
+            {
+            var pro = Task.Run(() => ProductController.GetAllProductbyName(product));
+            pro.Wait();
+
+            txtStock.Text = pro.Result.data[0].quantity.ToString();
+            }
+            else
+            {
+                txtStock.Text = "0";
+
             }
         }
     }

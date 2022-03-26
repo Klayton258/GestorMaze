@@ -16,7 +16,7 @@ namespace Gestor_Maze
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormPrincipal());
+            Application.Run(new Forms.Login());
         }
     }
 }

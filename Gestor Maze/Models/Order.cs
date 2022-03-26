@@ -43,4 +43,36 @@ namespace Gestor_Maze.Models
             return json;
         }
     }
+
+    class Report
+    {
+        public string msg { get; set; }
+        public int code { get; set; }
+        public List<Rel> data { get; set; }
+
+        public static Report JsonDesserialize(string json)
+        {
+            return JsonConvert.DeserializeObject<Report>(json);
+        }
+
+        public static string JsonSerialize(Rel obj)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.NullValueHandling = NullValueHandling.Ignore;
+
+            var json = JsonConvert.SerializeObject(obj);
+
+            return json;
+        }
+    }
+
+    class Rel
+    {
+        public string product_name { get; set; }
+        public double price { get; set; }
+        public int quantity { get; set; }
+        public double subtotal { get; set; }
+        public string begin { get; set; }
+        public string end { get; set; }
+    }
 }

@@ -68,8 +68,15 @@ namespace Gestor_Maze.Forms
             int id = (int)tblTables.CurrentRow.Cells[0].Value;
             string name = (string)tblTables.CurrentRow.Cells[1].Value;
             int lot = (int)tblTables.CurrentRow.Cells[2].Value;
+            string state_name = (string)tblTables.CurrentRow.Cells[2].Value.ToString();
             int state = 2;
             #endregion
+
+            if (state_name.Equals("OCCUPED"))
+            {
+                MessageBox.Show("Table is OCUPPED can't be activated", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             var response = Task.Run(() => TableController.UpdateTable(id,name,lot,state));
             response.Wait();
@@ -95,9 +102,15 @@ namespace Gestor_Maze.Forms
             int id = (int)tblTables.CurrentRow.Cells[0].Value;
             string name = (string)tblTables.CurrentRow.Cells[1].Value;
             int lot = (int)tblTables.CurrentRow.Cells[2].Value;
+            string state_name = (string)tblTables.CurrentRow.Cells[2].Value.ToString();
             int state = 1;
             #endregion
 
+            if (state_name.Equals("OCCUPED"))
+            {
+                MessageBox.Show("Table is OCUPPED can't be desactivate", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             var response = Task.Run(() => TableController.UpdateTable(id, name, lot, state));
             response.Wait();
 
@@ -118,7 +131,15 @@ namespace Gestor_Maze.Forms
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string state = (string)tblTables.CurrentRow.Cells[2].Value.ToString();
             int id = (int)tblTables.CurrentRow.Cells[0].Value;
+
+            if (state.Equals("OCCUPED"))
+            {
+                MessageBox.Show("Table is OCUPPED can't be deleted", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var response = Task.Run(() => TableController.DeleteProduct(id));
             response.Wait();
 
@@ -131,8 +152,14 @@ namespace Gestor_Maze.Forms
             int id = (int)tblTables.CurrentRow.Cells[0].Value;
             string name = (string)tblTables.CurrentRow.Cells[1].Value;
             string lot = (string)tblTables.CurrentRow.Cells[2].Value;
-            string state = (string)tblTables.CurrentRow.Cells[2].Value;
+            string state = (string)tblTables.CurrentRow.Cells[2].Value.ToString();
             #endregion
+
+            if (state.Equals("OCCUPED"))
+            {
+                MessageBox.Show("Table is OCUPPED can't be edited", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             int state_id;
             if (state.Equals("INACTIVE"))

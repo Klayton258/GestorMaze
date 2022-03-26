@@ -155,6 +155,7 @@ namespace Gestor_Maze.Forms
             this.cbxProduct.FormattingEnabled = true;
             this.cbxProduct.Name = "cbxProduct";
             this.cbxProduct.Sorted = true;
+            this.cbxProduct.SelectedIndexChanged += new System.EventHandler(this.cbxProduct_SelectedIndexChanged);
             // 
             // bunifuLabel2
             // 

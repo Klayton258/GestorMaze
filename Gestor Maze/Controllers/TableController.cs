@@ -10,7 +10,7 @@ namespace Gestor_Maze.Controllers
 {
     class TableController
     {
-        private static string baseURL = "http://127.0.0.1:8000/api/tables/"; // Endpoint
+        private static string baseURL = Gestor_Maze.Properties.Resources.baseUrltables; // Endpoint
 
         /**Get All TABLES
          * 
@@ -141,6 +141,8 @@ namespace Gestor_Maze.Controllers
             return responseValue;
         }
 
+        /** GET ID TABLE BY NAME
+        */
         public static async Task<List<TableData>> GetTabletbyName(string name)
         {
             TableModel responseValue = new TableModel();
@@ -167,5 +169,61 @@ namespace Gestor_Maze.Controllers
                 return list;
             }
         }
+
+        /** GET ALL TABLE BY NAME
+        */
+        public static async Task<TableModel> GetTableAllbyName(string name)
+        {
+            TableModel responseValue = new TableModel();
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(baseURL + $"tablebyname/{name}");
+
+                var resp = await response.Content.ReadAsStringAsync();
+
+                responseValue = TableModel.JsonDesserialize(resp);
+
+                return responseValue;
+            }
+        }
+
+        /** UPDATE TABLE STATE
+        */
+        public static async Task<TableModel> UpdateTableState(int id,int state)
+        {
+            TableModel responseValue = new TableModel();
+            using (var httpClient = new HttpClient())
+            {
+                #region UPDATE TABLE STATE
+
+                TableData obj = new TableData()
+                {
+                    state_id = state,
+                };
+
+                var json = TableModel.JsonSerialize(obj);
+                var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await httpClient.PutAsync(baseURL +$"updatetablestates/{id}", stringContent);
+
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var bad = await response.Content.ReadAsStringAsync();
+                    responseValue = TableModel.JsonDesserialize(bad);
+                }
+                else
+                {
+                    var resp = await response.Content.ReadAsStringAsync();
+                    responseValue = TableModel.JsonDesserialize(resp);
+                }
+
+
+                #endregion
+
+
+                return responseValue;
+            }
+        }
+
     }
 }
