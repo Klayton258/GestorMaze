@@ -12,7 +12,7 @@ namespace Gestor_Maze.Controllers
     {
         private static string baseURL = Gestor_Maze.Properties.Resources.baseUrlorders; // Endpoint
        
-        /**Get All ORDERS
+        /** Get All ORDERS
          * 
          */
         public static async Task<Order> AllTables()
@@ -32,7 +32,7 @@ namespace Gestor_Maze.Controllers
             return responseValue;
         }
 
-        /**POST ORDER
+        /** POST ORDER
         */
         public static async Task<Order> NewOrder(int product_id, int table_id, double price, int quantity, double subtotal)
 
@@ -55,7 +55,7 @@ namespace Gestor_Maze.Controllers
                 var json = Order.JsonSerialize(obj);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync(baseURL, stringContent);
+                var response = await httpClient.PostAsync($"{baseURL}new", stringContent);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
@@ -71,7 +71,7 @@ namespace Gestor_Maze.Controllers
             }
         }
 
-        /**NORMAL PUT ORDER
+        /** NORMAL PUT ORDER
        */
         public static async Task<Order> NormalUpdateOrder(int id, int product_id, int table_id, int state_id, double price, int quantity, double subtotal)
         {
@@ -114,7 +114,7 @@ namespace Gestor_Maze.Controllers
             }
         }
 
-        /**PUT ORDER
+        /** PUT ORDER
         */
         public static async Task<Order> UpdateOrder(int id, int product_id, int table_id, int state_id, double price, int quantity, double subtotal)
         {
@@ -212,7 +212,7 @@ namespace Gestor_Maze.Controllers
         }
 
         /** CLOSE ORDER
-*/
+        */
         public static async Task<Order> CloseOrdeer(int id)
         {
             Order responseValue = new Order();
@@ -241,8 +241,7 @@ namespace Gestor_Maze.Controllers
             }
         }
 
-        /**Post All REPORT
-         * 
+        /** Get All REPORT 
          */
         public static async Task<Report> GetReport(string begin, string end)
         {
@@ -256,8 +255,6 @@ namespace Gestor_Maze.Controllers
                     end = end
 
                 };
-                //var response = await httpClient.GetAsync($"{baseURL}/report");
-                //var responseString = await response.Content.ReadAsStringAsync();
 
                 var json = Report.JsonSerialize(obj);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");

@@ -4,17 +4,17 @@
   <description asmv2:publisher="Maze Managment" co.v1:suiteName="Maze Management" asmv2:product="Maze Management" asmv2:supportUrl="https://mazedeve.com/" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" co.v1:createDesktopShortcut="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Gestor Maze.exe.manifest" size="17282">
+    <dependentAssembly dependencyType="install" codebase="Gestor Maze.exe.manifest" size="28455">
       <assemblyIdentity name="Gestor Maze.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="en" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1UurNoInWNUacODHkANg1EVh6DAJeK5yoTZ1ykIzy1Q=</dsig:DigestValue>
+        <dsig:DigestValue>weGIhsSwarN2GDkMU9/QP51z/d6zExN2yuacoCIsbEc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -25,7 +25,11 @@ namespace Gestor_Maze.Models
         }
         public static string JsonSerialize(Data obj)
         {
-          var json= JsonConvert.SerializeObject(obj);
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.NullValueHandling = NullValueHandling.Ignore;
+            settings.DefaultValueHandling = DefaultValueHandling.Ignore;
+
+            var json = JsonConvert.SerializeObject(obj,settings);
 
             return json;
         }

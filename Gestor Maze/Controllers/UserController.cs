@@ -28,8 +28,6 @@ namespace Gestor_Maze.Controllers
                     pass = password
 
                 };
-                //var response = await httpClient.GetAsync($"{baseURL}/report");
-                //var responseString = await response.Content.ReadAsStringAsync();
 
                 var json = User.JsonSerialize(obj);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");

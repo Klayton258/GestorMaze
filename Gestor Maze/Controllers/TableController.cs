@@ -1,7 +1,6 @@
 ﻿using Gestor_Maze.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,19 +36,20 @@ namespace Gestor_Maze.Controllers
         {
             int state_id = 1;
             TableModel responseValue = new TableModel();
+
             using (var httpClient = new HttpClient())
             {
-                TableData obj = new TableData() 
+                TableData obj = new TableData()
                 {
-                   state_id = state_id,
-                   table_name = name,
-                   lot = lot
+                    state_id = state_id,
+                    table_name = name,
+                    lot = lot
                 };
 
                 var json = TableModel.JsonSerialize(obj);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync(baseURL, stringContent);
+                var response = await httpClient.PostAsync($"{baseURL}new", stringContent);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {

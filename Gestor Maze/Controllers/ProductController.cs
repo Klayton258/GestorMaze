@@ -11,8 +11,7 @@ namespace Gestor_Maze.Controllers
     {
         private static string baseURL = Gestor_Maze.Properties.Resources.baseUrlproducts; // Endpoint
 
-        /**
-         * Get All Products
+        /** Get All Products
          */
         public static async Task<Product> AllProducts()
         {
@@ -47,7 +46,7 @@ namespace Gestor_Maze.Controllers
                 var json = Product.JsonSerialize(obj);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync(baseURL, stringContent);
+                var response = await httpClient.PostAsync($"{baseURL}new", stringContent);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
@@ -63,8 +62,7 @@ namespace Gestor_Maze.Controllers
             }
         }
 
-        /**
-        *UPDATE Product by id
+        /**UPDATE Product by id
         */
         public static async Task<Product> UpdateProduct(string name=null, double price=0, int quantity=0)
         {
@@ -158,9 +156,7 @@ namespace Gestor_Maze.Controllers
             }
         }
 
-
-        /**
-         * DELETE Product by id
+        /** DELETE Product by id
          */
         public static async Task<int> DeleteProduct(object id)
         {
@@ -214,7 +210,6 @@ namespace Gestor_Maze.Controllers
                 return id;
             }
         }
-
 
         /** GET TABLE BY ID
          */

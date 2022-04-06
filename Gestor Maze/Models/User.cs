@@ -43,8 +43,10 @@ namespace Gestor_Maze.Models
             {
                 JsonSerializerSettings settings = new JsonSerializerSettings();
                 settings.NullValueHandling = NullValueHandling.Ignore;
+                settings.DefaultValueHandling = DefaultValueHandling.Ignore;
 
-                var json = JsonConvert.SerializeObject(obj);
+
+            var json = JsonConvert.SerializeObject(obj,settings);
 
                 return json;
             }
