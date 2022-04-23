@@ -73,7 +73,7 @@ namespace Gestor_Maze.Controllers
 
         /** NORMAL PUT ORDER
        */
-        public static async Task<Order> NormalUpdateOrder(int id, int product_id, int table_id, int state_id, double price, int quantity, double subtotal)
+        public static async Task<Order> NormalUpdateOrder(int id, int product_id, int table_id,int quantity, double subtotal)
         {
             Order responseValue = new Order();
             using (var httpClient = new HttpClient())
@@ -84,8 +84,6 @@ namespace Gestor_Maze.Controllers
                 {
                     product_id = product_id,
                     table_id = table_id,
-                    state_id = state_id,
-                    price = price,
                     quantity = quantity,
                     subtotal = subtotal
                 };
@@ -93,7 +91,7 @@ namespace Gestor_Maze.Controllers
                 var json = Order.JsonSerialize(obj);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PutAsync(baseURL + $"normalupdateorder/{id}", stringContent);
+                var response = await httpClient.PutAsync($"{baseURL}normalupdateorder/{id}", stringContent);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
@@ -116,7 +114,7 @@ namespace Gestor_Maze.Controllers
 
         /** PUT ORDER
         */
-        public static async Task<Order> UpdateOrder(int id, int product_id, int table_id, int state_id, double price, int quantity, double subtotal)
+        public static async Task<Order> UpdateOrder(int id, int product_id, int table_id, int quantity, double subtotal)
         {
             Order responseValue = new Order();
             using (var httpClient = new HttpClient())
@@ -127,8 +125,6 @@ namespace Gestor_Maze.Controllers
                 {
                     product_id= product_id,
                     table_id = table_id,
-                    state_id= state_id,
-                    price= price,
                     quantity = quantity,
                     subtotal = subtotal
                 };
@@ -136,7 +132,7 @@ namespace Gestor_Maze.Controllers
                 var json = Order.JsonSerialize(obj);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PutAsync(baseURL + $"updateorder/{id}", stringContent);
+                var response = await httpClient.PutAsync($"{baseURL}updateorder/{id}", stringContent);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
@@ -165,7 +161,7 @@ namespace Gestor_Maze.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.DeleteAsync(baseURL + id);
+                var response = await httpClient.DeleteAsync($"{baseURL}delete/" + id);
 
                 var resp = await response.Content.ReadAsStringAsync();
                 responseValue = Product.JsonDesserialize(resp);

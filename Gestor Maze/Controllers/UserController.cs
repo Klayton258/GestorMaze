@@ -1,6 +1,7 @@
 ﻿using Gestor_Maze.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -45,6 +46,98 @@ namespace Gestor_Maze.Controllers
                     responseValue = User.JsonDesserialize(resp);
                 }
                 return responseValue;
+            }
+        }
+
+        /** CREATE USER
+         * 
+         */
+        public static async Task<User> NewUser(string fullname, string username, string password, string age, string gener, string phone, string email, string document, string address, string bankAccount, string salary, string pictureBox1, string permission)
+        {
+            User responseValue = new User();
+            using (var httpClient = new HttpClient())
+            {
+            //var fileName = Path.GetFileName(pictureBox1);
+            //var requestContent = new MultipartFormDataContent();
+            //var fileStream = File.OpenRead(pictureBox1);
+            
+            
+                UserData obj = new UserData()
+                {
+                    name = fullname,
+                    username = username,
+                    pass = password,
+                    age = age,
+                    gener = gener,
+                    phone = phone,
+                    email = email,
+                    document = document,
+                    address = address,
+                    bank_account = bankAccount,
+                    salary = salary,
+                    picture = pictureBox1,
+                    permission = permission
+
+                };
+                
+               
+
+                var json = User.JsonSerialize(obj);
+
+                var stringContent = new StringContent(json , Encoding.UTF8, "application/json");
+
+                var response = await httpClient.PostAsync($"{baseURL}new", stringContent);
+
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var bad = await response.Content.ReadAsStringAsync();
+                    responseValue = User.JsonDesserialize(bad);
+                }
+                else
+                {
+                    var resp = await response.Content.ReadAsStringAsync();
+                    responseValue = User.JsonDesserialize(resp);
+                }
+                return responseValue;
+            }
+
+
+        }
+
+        public static async Task<User> AllUsers()
+        {
+            User responseValue = new User();
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(baseURL);
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                responseValue = User.JsonDesserialize(responseString); // Desserialize Json to Object
+
+            }
+
+            return responseValue;
+        }
+
+        /**USER ACTIVATE
+         * 
+         */
+        public static async Task<int> ActiveUser(object id)
+        {
+            User responseValue = new User();
+
+            using (var httpClient = new HttpClient())
+            {
+
+
+                var response = await httpClient.GetAsync($"{baseURL}activeuser/" + id);
+
+                var resp = await response.Content.ReadAsStringAsync();
+                responseValue = User.JsonDesserialize(resp);
+                Console.WriteLine(responseValue);
+
+                return 202;
             }
         }
     }

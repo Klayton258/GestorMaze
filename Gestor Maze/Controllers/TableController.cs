@@ -113,7 +113,7 @@ namespace Gestor_Maze.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.DeleteAsync(baseURL + id);
+                var response = await httpClient.DeleteAsync($"{baseURL}delete/" + id);
 
                 var resp = await response.Content.ReadAsStringAsync();
                 responseValue = Product.JsonDesserialize(resp);

@@ -174,3 +174,7 @@ C:\projects\GestorMaze\Gestor Maze\bin\Debug\System.Numerics.Vectors.xml
 C:\projects\GestorMaze\Gestor Maze\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\projects\GestorMaze\Gestor Maze\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\projects\GestorMaze\Gestor Maze\bin\Debug\System.ValueTuple.xml
+C:\projects\GestorMaze\Gestor Maze\bin\Debug\en\Gestor Maze.resources.dll
+C:\projects\GestorMaze\Gestor Maze\obj\Debug\Gestor_Maze.FormPrincipal.en.resources
+C:\projects\GestorMaze\Gestor Maze\obj\Debug\en\Gestor Maze.resources.dll
+C:\projects\GestorMaze\Gestor Maze\obj\Debug\Gestor_Maze.Forms.UsersManage.resources

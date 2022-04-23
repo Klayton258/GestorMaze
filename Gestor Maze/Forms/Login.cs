@@ -32,6 +32,13 @@ namespace Gestor_Maze.Forms
 
                 if (log.Result.data != null)
                 {
+                    if (log.Result.data[0].permission.Equals("1"))
+                    {
+                        MessageBox.Show("This user doesnt have permission to log",
+                                   "info", MessageBoxButtons.OK, MessageBoxIcon.Information); // Return the error message
+                        return;
+                    }
+
                     new FormPrincipal(log.Result.data[0].name, log.Result.data[0].permission).Show();
                     this.Hide();
                 }
@@ -48,7 +55,7 @@ namespace Gestor_Maze.Forms
                 MessageBox.Show("Make sure the username and the password are correct.",
                                   "Log in Fail", MessageBoxButtons.OK, MessageBoxIcon.Error); // Return the error message
             }
-            
+
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -65,7 +72,7 @@ namespace Gestor_Maze.Forms
 
         private void bntClose_Click(object sender, EventArgs e)
         {
-            Dispose();
+            this.Dispose();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

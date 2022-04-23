@@ -150,16 +150,14 @@ namespace Gestor_Maze.Forms
                 FolderBrowserDialog objFDB = new FolderBrowserDialog();
                 objFDB.ShowNewFolderButton = true;
                 objFDB.ShowDialog();
-                //string strPath = objFDB.SelectedPath + @"\arquivo.txt";
 
                 exportRel(table, objFDB.SelectedPath + $@"\Rel_{DateTime.Now.ToString("HH_mm")}.pdf", "REPORT");
                 System.Diagnostics.Process.Start(objFDB.SelectedPath + $@"\Rel_{DateTime.Now.ToString("HH_mm")}.pdf");
-                //this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             }
             catch (Exception)
             {
 
-                throw;
+                return;
             }
 
         }

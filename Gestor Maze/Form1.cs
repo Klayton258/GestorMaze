@@ -30,9 +30,18 @@ namespace Gestor_Maze
             lblUser.Text = user;
             lblPerm.Text = role;
 
-            if (!role.Equals("10"))
+            if (!role.Equals("10") && !role.Equals("100"))
             {
                 btnManagementMenu.Hide();
+                btnRegister.Hide();
+                btnEdit.Hide();
+            }
+            else if (role.Equals("9"))
+            {
+                btnManagementMenu.Show();
+                btnRegister.Show();
+                btnEdit.Show();
+                gbCreateUser.Hide();
             }
 
         }
@@ -252,9 +261,9 @@ namespace Gestor_Maze
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
             object product = clientsTables.CurrentRow.Cells[0].Value;
+            object name = lblUser.Text;
 
-
-            TableOrders tborders = new TableOrders(product);
+            TableOrders tborders = new TableOrders(product,name);
             tborders.ShowDialog();
 
 
@@ -406,7 +415,13 @@ namespace Gestor_Maze
 
         private void btnNewTable_Click(object sender, EventArgs e)
         {
-            new NewOrder().ShowDialog();
+            NewOrder newOrder = new NewOrder();
+            newOrder.ShowDialog();
+
+            if (newOrder.DialogResult == DialogResult.OK)
+            {
+                ListOrders();
+            }
         }
 
         private void txtName_Click(object sender, EventArgs e)
@@ -420,7 +435,7 @@ namespace Gestor_Maze
         }
 
 
-        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void editPToolStripMenuItem_Click(object sender, EventArgs e)
         {
             btnEdit.Enabled = true;
             btnRegister.Enabled = false;
@@ -435,32 +450,20 @@ namespace Gestor_Maze
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            int id = int.Parse(txtID.Text);
+            string id = txtID.Text;
             string name = txtName.Text;
             int quantity = int.Parse(txtQuantity.Text);
             double price = double.Parse(txtPrice.Text);
 
-            if (quantity != 0 && price != 0 && id != 0 && name != "")
+            if (quantity != 0 && price != 0 && id != "" && name != "")
             {
-
-
-                //Update Product
-                int newQut = 0;
-                if (quantity < 0)
-                {
-                    //subtrair quantidade
-                    newQut = 10 - 1;
-                }
-                else
-                {
-                    //Add quantity
-                    newQut = 10 + 2;
-                }
+                var updateProduct = Task.Run(() => ProductController.UpdateProduct(id, name, price, quantity));
 
                 txtID.Text = ""; txtName.Text = ""; txtPrice.Text = ""; txtQuantity.Text = "";
 
                 btnRegister.Enabled = true;
                 btnEdit.Enabled = false;
+                listProducts();
             }
         }
 
@@ -469,18 +472,23 @@ namespace Gestor_Maze
             btnRegister.Enabled = true;
         }
 
-        private void bunifuButton5_Click(object sender, EventArgs e)
-        {
-            ListOrders();
-        }
-
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            
+            var product = Task.Run(() => ProductController.AllProducts());
+            product.Wait();
+
+
+            tableProducts.Rows.Clear(); // Clean the table Products
+                int count = 0;
+            if (product.Result.data != null)
+            {
+                for (int i = 0; i <= product.Result.data.Count; i++)
+                {
+                    count++;
+                }
+            }
+                lblVisitors.Text = count.ToString();
         }
-
-        
-
 
         private void btnRel_Click(object sender, EventArgs e)
         {
@@ -488,6 +496,99 @@ namespace Gestor_Maze
             string end = dpEndDate.Value.Date.ToString("yyyy-MM-dd");
 
             new Forms.Rel(begin, end).ShowDialog();
+        }
+
+        private void FormPrincipal_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Login loginForm = new Login();
+
+            loginForm.Show();
+
+            this.Hide();
+        }
+
+        private void bunifuTextBox10_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCreateUser_Click(object sender, EventArgs e)
+        {
+            string fullname = txtFullName.Text.Trim();
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
+            string age = dpkBirthday.Value.Date.ToString("yyyy-MM-dd");
+
+            string gener = "";
+            if (rbtnFemenine.Checked)
+            {
+                gener = rbtnFemenine.Text;
+                rbtnMale.Checked = false;
+            }
+            else if (rbtnMale.Checked)
+            {
+                gener = rbtnMale.Text;
+                rbtnFemenine.Checked = false;
+            }
+
+
+            string phone = txtPhone.Text;
+            string email = txtEmailUser.Text.Trim();
+            string document = txtDocument.Text.Trim();
+            string address = txtAddress.Text.Trim();
+            string bankAccount = txtBankAccount.Text.Trim();
+            string salary = txtSalary.Text.Trim();
+            string permission = cbcPermissions.Text;
+            
+            if (cbcPermissions.Text == "Colaborator")
+            {
+                permission = "1";
+            }
+            else if (cbcPermissions.Text == "Atendent")
+            {
+                permission = "2";
+            }
+            else if (cbcPermissions.Text == "Management")
+            {
+                permission = "9";
+            }
+            else if (cbcPermissions.Text == "Administrator")
+            {
+                permission = "10";
+            }
+
+            string path = "https://mazedeve.com";
+
+
+            Console.WriteLine("=========> " + path);
+            var newUser = Task.Run(() => UserController.NewUser(fullname, username, password, age, gener, phone, email, document, address, bankAccount, salary, path, permission));
+            newUser.Wait();
+        }
+
+        private void userPicture_Click(object sender, EventArgs e)
+        {
+
+            FileDialog fileDialog2 = openFileDialog1;
+            fileDialog2.ShowDialog();
+            var path = fileDialog2.FileName;
+            //userPicture.ImageLocation = path;
+            //Console.WriteLine("=========> " + path);
+        }
+
+        private void btnActiveOrders_Click(object sender, EventArgs e)
+        {
+            btnTablesMenu_Click(sender, e);
+        }
+
+        private void bunifuButton1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnManageUsers_Click(object sender, EventArgs e)
+        {
+            UsersManage userManage = new UsersManage();
+            userManage.ShowDialog();
         }
     }
 }

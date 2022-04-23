@@ -137,7 +137,7 @@ namespace Gestor_Maze.Forms
 
                 var createOrder = Task.Run(() => OrderController.NewOrder(product_id, table_id, price, quantity, subtotal));
                 createOrder.Wait();
-
+                DialogResult = DialogResult.OK;
                 if (createOrder.Result.code != 201)
                 {
                     MessageBox.Show("An error occured , please check your connection or contact the admin.",

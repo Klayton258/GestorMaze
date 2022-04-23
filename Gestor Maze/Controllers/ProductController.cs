@@ -64,23 +64,24 @@ namespace Gestor_Maze.Controllers
 
         /**UPDATE Product by id
         */
-        public static async Task<Product> UpdateProduct(string name=null, double price=0, int quantity=0)
+        public static async Task<Product> UpdateProduct(string id, string name, double price, int quantity)
         {
             Product responseValue = new Product();
             using (var httpClient = new HttpClient())
             {
                 #region UPDATE NAME
-                if (name != null)
-                {
+               
                 Data obj = new Data()
                 {
-                    product_name = name
+                    product_name = name,
+                    price = price,
+                    quantity = quantity
                 };
 
                     var json = Product.JsonSerialize(obj);
                     var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    var response = await httpClient.PutAsync(baseURL, stringContent);
+                    var response = await httpClient.PutAsync($"{baseURL}update/{id}", stringContent);
 
                     if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
@@ -93,63 +94,6 @@ namespace Gestor_Maze.Controllers
                         responseValue = Product.JsonDesserialize(resp);
                     }
 
-                }
-                #endregion
-
-                #region UPDATE PRICE
-                else
-                if (price != 0)
-                {
-                    Data obj = new Data()
-                    {
-                        
-                        price = price
-                    };
-
-                    var json = Product.JsonSerialize(obj);
-                    var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    var response = await httpClient.PutAsync(baseURL, stringContent);
-
-                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-                    {
-                        var bad = await response.Content.ReadAsStringAsync();
-                        responseValue = Product.JsonDesserialize(bad);
-                    }
-                    else
-                    {
-                        var resp = await response.Content.ReadAsStringAsync();
-                        responseValue = Product.JsonDesserialize(resp);
-                    }
-
-                }
-                #endregion
-
-                #region UPDATE QUANTITY
-                else
-                if (quantity != 0)
-                {
-                    Data obj = new Data()
-                    {
-                        quantity = quantity
-                    };
-
-                    var json = Product.JsonSerialize(obj);
-                    var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    var response = await httpClient.PutAsync(baseURL, stringContent);
-
-                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-                    {
-                        var bad = await response.Content.ReadAsStringAsync();
-                        responseValue = Product.JsonDesserialize(bad);
-                    }
-                    else
-                    {
-                        var resp = await response.Content.ReadAsStringAsync();
-                        responseValue = Product.JsonDesserialize(resp);
-                    }
-                }
                 #endregion
 
                 return responseValue;
@@ -164,7 +108,7 @@ namespace Gestor_Maze.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                var response = await httpClient.DeleteAsync(baseURL + id);
+                var response = await httpClient.DeleteAsync($"{baseURL}delete/" + id);
 
                 var resp = await response.Content.ReadAsStringAsync();
                 responseValue = Product.JsonDesserialize(resp);

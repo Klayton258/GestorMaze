@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,11 +20,12 @@ namespace Gestor_Maze.Forms
 {
     public partial class TableOrders : Form
     {
-        public TableOrders(object obj)
+        public TableOrders(object obj, object Username)
         {
             InitializeComponent();
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
             lblTableID.Text = obj.ToString();
+            lblUsername.Text = Username.ToString();
             ListOrders(obj);
             ListProducts();
             ListTables();
@@ -125,6 +127,9 @@ namespace Gestor_Maze.Forms
 
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
+            double total = double.Parse(Regex.Match(lblTotal.Text, @"\d+\.*\d*").Value);
+            double iva = total * 0.17;
+
             #region INVOICE CONTENT
             e.Graphics.DrawString("KWETU RESTAURANT", new Font("Trebuchet MS", 10), Brushes.Black, new Point(65, 50));
             e.Graphics.DrawString("______________________________________________________________", new Font("Consolas", 5), Brushes.Black, new Point(20, 70));
@@ -150,14 +155,15 @@ namespace Gestor_Maze.Forms
 
                 }
             }
-            e.Graphics.DrawString("______________________________________________________________", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth));
+            e.Graphics.DrawString("IVA 17%:                                               "+ iva.ToString()+ " MT", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth += 10));
+            e.Graphics.DrawString("______________________________________________________________", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth+=10));
             e.Graphics.DrawString("TOTAL: " +lblTotal.Text, new Font("Consolas", 10, FontStyle.Bold), Brushes.Black, new Point(120, heigth += 10));
             e.Graphics.DrawString("______________________________________________________________", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth += 10));
 
-            e.Graphics.DrawString("SELLER: Unknow", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth+=10));
+            e.Graphics.DrawString("SELLER: "+lblUsername.Text, new Font("Consolas", 5), Brushes.Black, new Point(20, heigth+=10));
             e.Graphics.DrawString("PAYED WITH:                                              Cash", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth+=20));
-            e.Graphics.DrawString("MONEY GIVEN:                                         1000 ,MT", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth+=10));
-            e.Graphics.DrawString("CHANGE:                                               100 ,MT", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth+=10));
+            e.Graphics.DrawString("MONEY GIVEN:                                         xxxx ,MT", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth+=10));
+            e.Graphics.DrawString("CHANGE:                                               xxx ,MT", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth+=10));
             e.Graphics.DrawString("______________________________________________________________", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth += 10));
             e.Graphics.DrawString("                   *********THANKS********                     ", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth+=10));
             e.Graphics.DrawString("______________________________________________________________", new Font("Consolas", 5), Brushes.Black, new Point(20, heigth += 5));
@@ -249,12 +255,12 @@ namespace Gestor_Maze.Forms
                     }
                 }
                 #endregion
-
+                
                 if (verify)
                 {
                     
                     double newSubtotal = SubtotalToUpdate(quantity, price, sub_update); //get the new subtotal
-                    var update = Task.Run(() => OrderController.UpdateOrder(id_update, product_id, table_update, state_update, price, quantity, newSubtotal));
+                    var update = Task.Run(() => OrderController.UpdateOrder(id_update, product_id, table_update, quantity, newSubtotal));
                     update.Wait();
 
                     if (update.Result.code != 204)
@@ -262,6 +268,9 @@ namespace Gestor_Maze.Forms
                         MessageBox.Show(update.Result.msg,
                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // Return the error message
                     }
+                    cbcProducts.Text = "";
+                    txtquantity.Value = 0;
+                    lblStockAv.Text = "0";
 
                     TblOrdTable.Rows.Clear();
                     ListOrders(lblTableID.Text);
@@ -278,6 +287,9 @@ namespace Gestor_Maze.Forms
                         MessageBox.Show(createOrder.Result.msg,
                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // Return the error message
                     }
+                    cbcProducts.Text = "";
+                    txtquantity.Value = 0;
+                    lblStockAv.Text = "0";
 
                     TblOrdTable.Rows.Clear();
                     ListOrders(lblTableID.Text);
@@ -306,6 +318,12 @@ namespace Gestor_Maze.Forms
                 btnAdd.Enabled = true;
                 return;
             }
+            if (txtquantity.Value == 0 || txtquantity.Value < 0)
+            {
+                MessageBox.Show($"Please fill in de quantity box how much you want to reduce",
+                "Invalid Quantity", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
             #endregion
 
             var pro = Task.Run(() => ProductController.GetAllProductbyName(product));
@@ -322,17 +340,10 @@ namespace Gestor_Maze.Forms
             double subtotal = (double)TblOrdTable.CurrentRow.Cells[4].Value;
 
             int newQuantity =  (int)TblOrdTable.CurrentRow.Cells[2].Value - quantity;
-            if (newQuantity <=0)
-            {
-                MessageBox.Show("Cold not reduce the quantity, because the quantity is 0.",
-                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // Return the error message
-
-                return;
-            }
 
             double newSubtotal = SubtotalToUpdate(newQuantity, price, 0); //get the new subtotal
 
-            var update = Task.Run(() => OrderController.NormalUpdateOrder(id_update, product_id, table_id, 1, price, quantity, newSubtotal));
+            var update = Task.Run(() => OrderController.NormalUpdateOrder(id_update, product_id, table_id, quantity, newSubtotal));
             update.Wait();
 
             if (update.Result.code != 204)
@@ -340,6 +351,10 @@ namespace Gestor_Maze.Forms
                 MessageBox.Show(update.Result.msg,
                  "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // Return the error message
             }
+
+            cbcProducts.Text = "";
+            txtquantity.Value = 0;
+            lblStockAv.Text = "0";
 
             TblOrdTable.Rows.Clear();
             ListOrders(lblTableID.Text);
