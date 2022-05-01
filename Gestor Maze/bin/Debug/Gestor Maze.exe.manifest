@@ -235,13 +235,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+<<<<<<< Updated upstream
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Gestor Maze.exe" size="818648">
+=======
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Gestor Maze.exe" size="522200">
+>>>>>>> Stashed changes
       <assemblyIdentity name="Gestor Maze" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+<<<<<<< Updated upstream
         <dsig:DigestValue>HNQxGsDizgozm8YWNuW6j2ugdV8YoRp/H+XQOBEjCW0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
@@ -255,6 +260,9 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>c4dXN5jy1DPc8KPsmBLkRWSdNzcMCN44NuX0F+Hi29k=</dsig:DigestValue>
+=======
+        <dsig:DigestValue>fhnIY683riWSuY4mOb5A5dqS0rYNyEe81NzVDlLhb5Y=</dsig:DigestValue>
+>>>>>>> Stashed changes
       </hash>
     </dependentAssembly>
   </dependency>
