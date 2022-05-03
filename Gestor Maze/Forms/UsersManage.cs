@@ -74,8 +74,26 @@ namespace Gestor_Maze.Forms
             try
             {
                 object user = usersTable.CurrentRow.Cells[0].Value;
-                Console.WriteLine("User===> "+user);
+
                 Task<int> active = Task.Run(() => UserController.ActiveUser(user));
+                active.Wait();
+
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show(" User Activated.",
+                               "Ative user", MessageBoxButtons.OK, MessageBoxIcon.Information); // Return the error message
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                object user = usersTable.CurrentRow.Cells[0].Value;
+                Console.WriteLine("User===> " + user);
+                Task<int> active = Task.Run(() => UserController.DeleteUser(user));
                 active.Wait();
 
                 if (active.Result == 201)
