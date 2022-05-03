@@ -36,11 +36,9 @@ namespace Gestor_Maze.Models
             settings.NullValueHandling = NullValueHandling.Ignore;
             settings.DefaultValueHandling = DefaultValueHandling.Ignore;
 
-<<<<<<< Updated upstream
             var json = JsonConvert.SerializeObject(obj,settings);
-=======
             var json = JsonConvert.SerializeObject(obj, settings);
->>>>>>> Stashed changes
+
 
             return json;
         }

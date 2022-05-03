@@ -41,17 +41,14 @@ namespace Gestor_Maze.Controllers
             {
                 TableData obj = new TableData()
                 {
-<<<<<<< Updated upstream
                     state_id = state_id,
                     table_name = name,
                     lot = lot
-=======
                    state_id = state_id,
                    table_name = name,
                    lot = lot,
                    //created_at = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"),
                    //updated_at = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")
->>>>>>> Stashed changes
                 };
 
                 var json = TableModel.JsonSerialize(obj);
