@@ -235,14 +235,21 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Gestor Maze.exe" size="830424">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Gestor Maze.exe" size="818648">
+
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Gestor Maze.exe" size="522200">
       <assemblyIdentity name="Gestor Maze" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+
         <dsig:DigestValue>3caPHuBgjXlyNdqXsIIEaScHQCvflOd2d84Vy/7kYRg=</dsig:DigestValue>
+
+        <dsig:DigestValue>HNQxGsDizgozm8YWNuW6j2ugdV8YoRp/H+XQOBEjCW0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -254,7 +261,12 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+
         <dsig:DigestValue>ASr/bs1ia5oymiyjiFDWyEPJXCJuIYpOsYXFstF02AA=</dsig:DigestValue>
+
+        <dsig:DigestValue>c4dXN5jy1DPc8KPsmBLkRWSdNzcMCN44NuX0F+Hi29k=</dsig:DigestValue>
+
+        <dsig:DigestValue>fhnIY683riWSuY4mOb5A5dqS0rYNyEe81NzVDlLhb5Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
