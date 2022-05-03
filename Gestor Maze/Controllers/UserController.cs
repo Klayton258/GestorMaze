@@ -1,8 +1,5 @@
 ﻿using Gestor_Maze.Models;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +30,7 @@ namespace Gestor_Maze.Controllers
                 var json = User.JsonSerialize(obj);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync($"{baseURL}login", stringContent);
+                var response = await httpClient.PostAsync($"{baseURL}/login", stringContent);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
@@ -57,9 +54,6 @@ namespace Gestor_Maze.Controllers
             User responseValue = new User();
             using (var httpClient = new HttpClient())
             {
-            //var fileName = Path.GetFileName(pictureBox1);
-            //var requestContent = new MultipartFormDataContent();
-            //var fileStream = File.OpenRead(pictureBox1);
             
             
                 UserData obj = new UserData()
@@ -86,7 +80,7 @@ namespace Gestor_Maze.Controllers
 
                 var stringContent = new StringContent(json , Encoding.UTF8, "application/json");
 
-                var response = await httpClient.PostAsync($"{baseURL}new", stringContent);
+                var response = await httpClient.PostAsync($"{baseURL}/new", stringContent);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
@@ -104,6 +98,9 @@ namespace Gestor_Maze.Controllers
 
         }
 
+        /** GET ALL USERS
+       * 
+       */
         public static async Task<User> AllUsers()
         {
             User responseValue = new User();
@@ -131,7 +128,28 @@ namespace Gestor_Maze.Controllers
             {
 
 
-                var response = await httpClient.GetAsync($"{baseURL}activeuser/" + id);
+                var response = await httpClient.GetAsync($"{baseURL}/activeuser/" + id);
+
+                var resp = await response.Content.ReadAsStringAsync();
+                responseValue = User.JsonDesserialize(resp);
+                Console.WriteLine(responseValue);
+
+                return 202;
+            }
+        }
+
+        /**USER DELETE
+         * 
+         */
+        public static async Task<int> DeleteUser(object id)
+        {
+            User responseValue = new User();
+
+            using (var httpClient = new HttpClient())
+            {
+
+
+                var response = await httpClient.DeleteAsync($"{baseURL}/delete/" + id);
 
                 var resp = await response.Content.ReadAsStringAsync();
                 responseValue = User.JsonDesserialize(resp);

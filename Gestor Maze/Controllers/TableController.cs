@@ -107,16 +107,16 @@ namespace Gestor_Maze.Controllers
 
         /** DELETE TABLE
         */
-        public static async Task<int> DeleteProduct(int id)
+        public static async Task<int> DeleteTable(int id)
         {
-            Product responseValue = new Product();
+            TableModel responseValue = new TableModel();
 
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.DeleteAsync($"{baseURL}delete/" + id);
 
                 var resp = await response.Content.ReadAsStringAsync();
-                responseValue = Product.JsonDesserialize(resp);
+                responseValue = TableModel.JsonDesserialize(resp);
                 Console.WriteLine(responseValue);
 
                 return 202;

@@ -131,6 +131,7 @@ namespace Gestor_Maze.Forms
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            try { 
             string state = (string)tblTables.CurrentRow.Cells[2].Value.ToString();
             int id = (int)tblTables.CurrentRow.Cells[0].Value;
 
@@ -140,10 +141,17 @@ namespace Gestor_Maze.Forms
                 return;
             }
 
-            var response = Task.Run(() => TableController.DeleteProduct(id));
+            var response = Task.Run(() => TableController.DeleteTable(id));
             response.Wait();
 
             ListTables();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error, please check your connection or contact the admin.",
+                                "Table Page", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); // Return the error message
+            } //end try catch
         }
 
         private void tblTables_CellEndEdit(object sender, DataGridViewCellEventArgs e)

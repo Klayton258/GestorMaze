@@ -213,6 +213,7 @@
             this.removeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.managementPage = new System.Windows.Forms.TabPage();
             this.gbCreateUser = new System.Windows.Forms.GroupBox();
+            this.dpkBirthday = new Bunifu.UI.WinForms.BunifuDatePicker();
             this.btnManageUsers = new Bunifu.UI.WinForms.BunifuButton.BunifuButton();
             this.txtFullName = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
             this.txtAddress = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
@@ -249,7 +250,6 @@
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.dpkBirthday = new Bunifu.UI.WinForms.BunifuDatePicker();
             this.panelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.PageController.SuspendLayout();
@@ -1952,6 +1952,23 @@
             this.gbCreateUser.Name = "gbCreateUser";
             this.gbCreateUser.TabStop = false;
             // 
+            // dpkBirthday
+            // 
+            this.dpkBirthday.BorderRadius = 1;
+            this.dpkBirthday.Color = System.Drawing.Color.DodgerBlue;
+            this.dpkBirthday.DateBorderThickness = Bunifu.UI.WinForms.BunifuDatePicker.BorderThickness.Thick;
+            this.dpkBirthday.DateTextAlign = Bunifu.UI.WinForms.BunifuDatePicker.TextAlign.Left;
+            this.dpkBirthday.DisabledColor = System.Drawing.Color.Gray;
+            this.dpkBirthday.DisplayWeekNumbers = false;
+            this.dpkBirthday.DPHeight = 0;
+            resources.ApplyResources(this.dpkBirthday, "dpkBirthday");
+            this.dpkBirthday.FillDatePicker = false;
+            this.dpkBirthday.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.dpkBirthday.Icon = ((System.Drawing.Image)(resources.GetObject("dpkBirthday.Icon")));
+            this.dpkBirthday.IconColor = System.Drawing.Color.DodgerBlue;
+            this.dpkBirthday.IconLocation = Bunifu.UI.WinForms.BunifuDatePicker.Indicator.Right;
+            this.dpkBirthday.Name = "dpkBirthday";
+            // 
             // btnManageUsers
             // 
             this.btnManageUsers.AllowToggling = false;
@@ -3219,23 +3236,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // dpkBirthday
-            // 
-            this.dpkBirthday.BorderRadius = 1;
-            this.dpkBirthday.Color = System.Drawing.Color.DodgerBlue;
-            this.dpkBirthday.DateBorderThickness = Bunifu.UI.WinForms.BunifuDatePicker.BorderThickness.Thick;
-            this.dpkBirthday.DateTextAlign = Bunifu.UI.WinForms.BunifuDatePicker.TextAlign.Left;
-            this.dpkBirthday.DisabledColor = System.Drawing.Color.Gray;
-            this.dpkBirthday.DisplayWeekNumbers = false;
-            this.dpkBirthday.DPHeight = 0;
-            this.dpkBirthday.FillDatePicker = false;
-            this.dpkBirthday.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.dpkBirthday.Icon = ((System.Drawing.Image)(resources.GetObject("dpkBirthday.Icon")));
-            this.dpkBirthday.IconColor = System.Drawing.Color.DodgerBlue;
-            this.dpkBirthday.IconLocation = Bunifu.UI.WinForms.BunifuDatePicker.Indicator.Right;
-            resources.ApplyResources(this.dpkBirthday, "dpkBirthday");
-            this.dpkBirthday.Name = "dpkBirthday";
             // 
             // FormPrincipal
             // 

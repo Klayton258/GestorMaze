@@ -137,6 +137,7 @@ namespace Gestor_Maze.Forms
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnDelete.TextMarginLeft = 0;
             this.btnDelete.UseDefaultRadiusAndThickness = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnActive
             // 
@@ -245,7 +246,6 @@ namespace Gestor_Maze.Forms
             this.usersTable.HeaderForeColor = System.Drawing.Color.White;
             this.usersTable.Location = new System.Drawing.Point(0, 63);
             this.usersTable.Name = "usersTable";
-            this.usersTable.ReadOnly = true;
             this.usersTable.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -263,84 +263,71 @@ namespace Gestor_Maze.Forms
             this.Column1.FillWeight = 50F;
             this.Column1.HeaderText = "#";
             this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
             this.Column1.Width = 50;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "Name";
             this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
             this.Column2.Width = 200;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Username";
             this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
             // 
             // Column4
             // 
             this.Column4.HeaderText = "Password";
             this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
             this.Column4.Width = 150;
             // 
             // Column5
             // 
             this.Column5.HeaderText = "Bithday";
             this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
             // 
             // Column6
             // 
             this.Column6.HeaderText = "Gener";
             this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
             // 
             // Column7
             // 
             this.Column7.HeaderText = "Phone";
             this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
             // 
             // Column8
             // 
             this.Column8.HeaderText = "Email";
             this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
             this.Column8.Width = 150;
             // 
             // Column9
             // 
             this.Column9.HeaderText = "Document";
             this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
             // 
             // Column10
             // 
             this.Column10.HeaderText = "Address";
             this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
             // 
             // Column11
             // 
             this.Column11.HeaderText = "Bank Account";
             this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
             this.Column11.Width = 150;
             // 
             // Column12
             // 
             this.Column12.HeaderText = "Salary";
             this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
             // 
             // Column13
             // 
             this.Column13.HeaderText = "Permission";
             this.Column13.Name = "Column13";
-            this.Column13.ReadOnly = true;
             // 
             // UsersManage
             // 

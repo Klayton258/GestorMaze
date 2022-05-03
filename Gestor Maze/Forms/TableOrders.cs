@@ -10,6 +10,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -105,6 +106,30 @@ namespace Gestor_Maze.Forms
             }
                 lblTotal.Text = total.ToString() + " Mzn";
             cbcTables.Text = orders.Result.data[0].table_name;
+
+            if (lblUuid.Text.Equals("none"))
+            {
+                lblUuid.Text = UUID();
+            }
+        }
+        public BigInteger GuidToBigInteger(Guid guid)
+        {
+            BigInteger l_retval = 0;
+            byte[] ba = guid.ToByteArray();
+            int i = ba.Count();
+            foreach (byte b in ba)
+            {
+                l_retval += b * BigInteger.Pow(256, --i);
+            }
+            return l_retval;
+        }
+
+        public String UUID()
+        {
+            Guid myuuid = Guid.NewGuid();
+            string myuuidAsString = myuuid.ToString();
+
+            return myuuidAsString;
         }
 
         private void cbcProducts_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -130,12 +155,14 @@ namespace Gestor_Maze.Forms
             double total = double.Parse(Regex.Match(lblTotal.Text, @"\d+\.*\d*").Value);
             double iva = total * 0.17;
 
+            string[] uuid = lblUuid.Text.Split('-');
+
             #region INVOICE CONTENT
             e.Graphics.DrawString("KWETU RESTAURANT", new Font("Trebuchet MS", 10), Brushes.Black, new Point(65, 50));
             e.Graphics.DrawString("______________________________________________________________", new Font("Consolas", 5), Brushes.Black, new Point(20, 70));
             e.Graphics.DrawString("DATE: " + DateTime.Now.ToLocalTime() , new Font("Consolas", 5), Brushes.Black, new Point(20, 80));
             e.Graphics.DrawString("TICKET N: " , new Font("Consolas", 5), Brushes.Black, new Point(230, 80));
-            e.Graphics.DrawString("#"+lblTableID.Text+ DateTime.Now.ToString("HHMM"), new Font("Consolas", 5), Brushes.Black, new Point(225, 90));
+            e.Graphics.DrawString("#"+uuid[0], new Font("Consolas", 5), Brushes.Black, new Point(225, 90));
             e.Graphics.DrawString("Table: "+cbcTables.Text, new Font("Consolas", 5), Brushes.Black, new Point(20, 90));
             e.Graphics.DrawString("______________________________________________________________", new Font("Consolas", 5), Brushes.Black, new Point(20,95));
 
@@ -179,6 +206,9 @@ namespace Gestor_Maze.Forms
             printPreviewDialog1.Document = printDocument1;
             printDocument1.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("Suit Detail", 286, 600);
             printPreviewDialog1.ShowDialog();
+
+            //PaymentMethod pymthod = new PaymentMethod();
+            //pymthod.ShowDialog();
         }
 
         public double SubtotalToUpdate(int quantity, double price, double actualSubtotal)
@@ -403,19 +433,20 @@ namespace Gestor_Maze.Forms
         {
             int id = int.Parse(lblTableID.Text);
 
-            if (MessageBox.Show("do you want to close de table?", "Close Table", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("ARE YOU SHURE YOU WANT TO CLOSE?", "Close Table", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Do you want to print the invoce before close the table?", "Invoce print", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("DO YOU WANT TO SAVE THE INVOICE?", "Invoce print", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     printPreviewDialog1.Document = printDocument1;
                     printDocument1.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("Suit Detail", 286, 600);
-                    //printPreviewDialog1.ShowDialog();
+                    printPreviewDialog1.ShowDialog();
 
-                    printDocument1.Print();
+                    //printDocument1.Print();
 
                     var close = Task.Run(() => OrderController.CloseOrdeer(id));
                     close.Wait();
 
+                    DialogResult = DialogResult.OK;
                     Dispose();
                 }
                 else
@@ -424,6 +455,7 @@ namespace Gestor_Maze.Forms
                     var close = Task.Run(() => OrderController.CloseOrdeer(id));
                     close.Wait();
 
+                    DialogResult = DialogResult.OK;
                     Dispose();
                 }
             }

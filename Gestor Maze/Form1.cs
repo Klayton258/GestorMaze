@@ -266,6 +266,11 @@ namespace Gestor_Maze
             TableOrders tborders = new TableOrders(product,name);
             tborders.ShowDialog();
 
+            if (tborders.DialogResult == DialogResult.OK)
+            {
+                ListOrders();
+            }
+
 
 
         }
@@ -557,10 +562,15 @@ namespace Gestor_Maze
                 permission = "10";
             }
 
+            if (phone.Equals("") || email.Equals("") || document.Equals("") || address.Equals("") || bankAccount.Equals("") || salary.Equals("") 
+                || permission.Equals("") || fullname.Equals("") || username.Equals("") || password.Equals(""))
+            {
+                MessageBox.Show("Fill all the fields");
+            }
+
             string path = "https://mazedeve.com";
 
 
-            Console.WriteLine("=========> " + path);
             var newUser = Task.Run(() => UserController.NewUser(fullname, username, password, age, gener, phone, email, document, address, bankAccount, salary, path, permission));
             newUser.Wait();
         }

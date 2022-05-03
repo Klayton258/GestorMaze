@@ -178,3 +178,4 @@ C:\projects\GestorMaze\Gestor Maze\bin\Debug\en\Gestor Maze.resources.dll
 C:\projects\GestorMaze\Gestor Maze\obj\Debug\Gestor_Maze.FormPrincipal.en.resources
 C:\projects\GestorMaze\Gestor Maze\obj\Debug\en\Gestor Maze.resources.dll
 C:\projects\GestorMaze\Gestor Maze\obj\Debug\Gestor_Maze.Forms.UsersManage.resources
+C:\projects\GestorMaze\Gestor Maze\obj\Debug\Gestor_Maze.Forms.PaymentMethod.resources
