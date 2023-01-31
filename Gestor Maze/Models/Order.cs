@@ -44,8 +44,6 @@ namespace Gestor_Maze.Models
 
             var json = JsonConvert.SerializeObject(obj, settings);
 
-            var json = JsonConvert.SerializeObject(obj,settings);
-
             return json;
         }
     }

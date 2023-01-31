@@ -461,10 +461,10 @@
             this.PageController.Controls.Add(this.managementPage);
             this.PageController.Multiline = true;
             this.PageController.Name = "PageController";
-            this.PageController.Page = this.managementPage;
-            this.PageController.PageIndex = 4;
-            this.PageController.PageName = "managementPage";
-            this.PageController.PageTitle = "managementPage";
+            this.PageController.Page = this.teblesPage;
+            this.PageController.PageIndex = 1;
+            this.PageController.PageName = "teblesPage";
+            this.PageController.PageTitle = "tablesPage";
             this.PageController.SelectedIndex = 0;
             animation1.AnimateOnlyDifferences = false;
             animation1.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.BlindCoeff")));
@@ -1225,7 +1225,7 @@
             this.bunifuDataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             resources.ApplyResources(this.bunifuDataGridView1, "bunifuDataGridView1");
             this.bunifuDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.bunifuDataGridView1.BackgroundColor = System.Drawing.Color.Black;
+            this.bunifuDataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.bunifuDataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.bunifuDataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.bunifuDataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;

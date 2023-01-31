@@ -15,8 +15,8 @@ namespace Gestor_Maze.Models
         public string state { get; set; }
         public string table_name { get; set; }
         public int lot { get; set; }
-        public string created_at { get; set; }
-        public string updated_at { get; set; }
+        public string created { get; set; }
+        public string updated { get; set; }
 
     }
     class TableModel
@@ -37,8 +37,6 @@ namespace Gestor_Maze.Models
             settings.DefaultValueHandling = DefaultValueHandling.Ignore;
 
             var json = JsonConvert.SerializeObject(obj,settings);
-            var json = JsonConvert.SerializeObject(obj, settings);
-
 
             return json;
         }

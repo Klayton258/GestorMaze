@@ -1588,7 +1588,7 @@
 </value>
   </data>
   <data name="bunifuTextBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 20</value>
+    <value>3, 20</value>
   </data>
   <data name="bunifuTextBox1.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>100, 35</value>
@@ -1750,7 +1750,7 @@
     <value>3, 0</value>
   </data>
   <data name="bunifuDataGridView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1447, 736</value>
+    <value>1677, 736</value>
   </data>
   <data name="bunifuDataGridView1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
