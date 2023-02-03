@@ -118,19 +118,20 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="baseUrl" xml:space="preserve">
-    <value>http://management.mazedeve.com/api/</value>
+    <value>http://localhost:8000/api/</value>
+    <comment>http://management.mazedeve.com/api/</comment>
   </data>
   <data name="baseUrlorders" xml:space="preserve">
-    <value>http://management.mazedeve.com/api/orders/</value>
+    <value>http://localhost:8000/api/orders/</value>
   </data>
   <data name="baseUrlproducts" xml:space="preserve">
-    <value>http://management.mazedeve.com/api/products/</value>
+    <value>http://localhost:8000/api/products/</value>
   </data>
   <data name="baseUrltables" xml:space="preserve">
-    <value>http://management.mazedeve.com/api/tables/</value>
+    <value>http://localhost:8000/api/tables/</value>
   </data>
   <data name="baseUrlusers" xml:space="preserve">
-    <value>http://management.mazedeve.com/api/users</value>
+    <value>http://localhost:8000/api/users</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Icon1" type="System.Resources.ResXFileRef, System.Windows.Forms">

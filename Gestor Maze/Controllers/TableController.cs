@@ -34,7 +34,7 @@ namespace Gestor_Maze.Controllers
         */
         public static async Task<TableModel> NewTable(string name, int lot)
         {
-            int state_id = 1;
+            int state_id = 3;
             TableModel responseValue = new TableModel();
 
             using (var httpClient = new HttpClient())

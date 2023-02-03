@@ -89,7 +89,7 @@ namespace Gestor_Maze.Forms
             double total=0;
             
             TblOrdTable.Rows.Clear();
-
+            if(orders.Result.data.Count > 0) { 
             for (int i = 0; i < orders.Result.data.Count; i++)
             {
                 
@@ -105,7 +105,15 @@ namespace Gestor_Maze.Forms
                 total += orders.Result.data[i].subtotal;
             }
                 lblTotal.Text = total.ToString() + " Mzn";
-            cbcTables.Text = orders.Result.data[0].table_name;
+                cbcTables.Text = orders.Result.data[0].table_name;
+            }
+            else
+            {
+                var table = Task.Run(() => TableController.GetTableById(id));
+                table.Wait();
+
+                cbcTables.Text = table.Result.data[0].table_name;
+            }
 
             if (lblUuid.Text.Equals("none"))
             {
@@ -158,7 +166,7 @@ namespace Gestor_Maze.Forms
             string[] uuid = lblUuid.Text.Split('-');
 
             #region INVOICE CONTENT
-            e.Graphics.DrawString("KWETU RESTAURANT", new Font("Trebuchet MS", 10), Brushes.Black, new Point(65, 50));
+            e.Graphics.DrawString("REPORT RESTAURANT", new Font("Trebuchet MS", 10), Brushes.Black, new Point(65, 50));
             e.Graphics.DrawString("______________________________________________________________", new Font("Consolas", 5), Brushes.Black, new Point(20, 70));
             e.Graphics.DrawString("DATE: " + DateTime.Now.ToLocalTime() , new Font("Consolas", 5), Brushes.Black, new Point(20, 80));
             e.Graphics.DrawString("TICKET N: " , new Font("Consolas", 5), Brushes.Black, new Point(230, 80));

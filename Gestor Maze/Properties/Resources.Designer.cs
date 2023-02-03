@@ -61,7 +61,7 @@ namespace Gestor_Maze.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://management.mazedeve.com/api/.
+        ///   Looks up a localized string similar to http://localhost:8000/api/.
         /// </summary>
         internal static string baseUrl {
             get {
@@ -70,7 +70,7 @@ namespace Gestor_Maze.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://management.mazedeve.com/api/orders/.
+        ///   Looks up a localized string similar to http://localhost:8000/api/orders/.
         /// </summary>
         internal static string baseUrlorders {
             get {
@@ -79,7 +79,7 @@ namespace Gestor_Maze.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://management.mazedeve.com/api/products/.
+        ///   Looks up a localized string similar to http://localhost:8000/api/products/.
         /// </summary>
         internal static string baseUrlproducts {
             get {
@@ -88,7 +88,7 @@ namespace Gestor_Maze.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://management.mazedeve.com/api/tables/.
+        ///   Looks up a localized string similar to http://localhost:8000/api/tables/.
         /// </summary>
         internal static string baseUrltables {
             get {
@@ -97,7 +97,7 @@ namespace Gestor_Maze.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://management.mazedeve.com/api/users.
+        ///   Looks up a localized string similar to http://localhost:8000/api/users.
         /// </summary>
         internal static string baseUrlusers {
             get {

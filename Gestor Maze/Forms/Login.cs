@@ -34,7 +34,7 @@ namespace Gestor_Maze.Forms
                 {
                     if (log.Result.data[0].permission.Equals("1"))
                     {
-                        MessageBox.Show("This user doesnt have permission to log",
+                        MessageBox.Show("This user doesn't have permission to log",
                                    "info", MessageBoxButtons.OK, MessageBoxIcon.Information); // Return the error message
                         return;
                     }
@@ -52,7 +52,7 @@ namespace Gestor_Maze.Forms
             catch (Exception)
             {
 
-                MessageBox.Show("Make sure the username and the password are correct.",
+                MessageBox.Show("Make sure the username and the password are correct, or contact the support support@mazedeve.com",
                                   "Log in Fail", MessageBoxButtons.OK, MessageBoxIcon.Error); // Return the error message
             }
 
